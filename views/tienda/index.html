@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda OcultaTarot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gradient-to-t from-[#000000] to-[#471A73] min-h-screen font-[Poppins]">
+
+    <!--* notificacion -->
+        <p class="notification fixed top-2 right-2 p-2 bg-gradient-to-t from-[#471A73] to-[#000000] border-blue-600 border-3 rounded-lg text-white "></p>
+        <!--* fin notificacion -->
+       
+        <!--! Navbar -->
+        <header class="bg-black">
+    
+            <nav class="flex justify-between items-center w-[92%] h-16 mx-auto">
+                <div>
+                    <img src="/imagenes/logo_oculta.png" alt="Logo" class="h-12">
+                </div>
+                <div class="nav-links md:static mx-2 absolute bg-black md:min-h-fit min-h-[40vh] left-0 right- top-[-100%] md:w-auto w-[97%] flex items-center px-5 ">
+                    <ul class="flex w-full md:flex-row  flex-col md:items-center text-white md:gap-[4vw] gap-8">
+                        <li><a href="/" class="hover:text-yellow-400 ">Inicio</a></li>
+                        <li><a href="/perfil" class="hover:text-yellow-400 ">Mi perfil</a></li>
+                        <li><a href="../tienda/index.html" class="hover:text-yellow-400">Tienda</a></li>
+                        <li><a href="/contacto" class="hover:text-yellow-400">Contacto</a></li>
+                        <li  class="">
+                            <button class="login-btn border border-white rounded-full px-2 hover:text-yellow-400">
+                                <a href="/login">Ingresar</a>
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="logout(this)" id="logout" class="logout-btn  border border-white rounded-full px-2  hover:text-yellow-400">
+                                Cerrar Sesión
+                            </button>
+                        </li>
+    
+    
+                    </ul>
+                </div>
+                
+                <div class="flex item-center gap-1  ">
+                     <button class="w-16 text-white px-5 py-2 rounded-full hover:bg-[#1E1En duration-300 ease-in-out md:block ">
+                        <svg onclick="onToggleMenu(this)" xmlns="http://www.w3.or1E] transitiog/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" name="menu" aria-label="menu"  class=" color-white text-3x1 cursor-pointer md:hidden">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                          </svg>
+                    </button>
+                    
+                    <button class="btn-carrito w-12 h-12 bg-[#1E1E1E] text-white my-1  rounded-full hover:bg-violet-900  transition duration-300 ease-in-out">
+                        <img class="w-12 h-12" src="/imagenes/icono_carrito.png" alt="logo_oculta">
+                    </button>
+                </div>
+    
+                <div class="seccion-carrito absolute top-14 right-0 w-full md:w-[60%] border-white border-solid border-3 bg-[#101720] h-[70%] z-50 overflow-auto hidden">
+                    <div class="carrito p-4">
+                        <h2 class="text-xl text-white">Carrito de Compras</h2>
+                        <table class="lista-carrito w-full mt-4 border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="text-white bg-[#1E1E1E] ">
+                                    <th class="w-1/4">Imagen</th>
+                                    <th class="w-1/4">Nombre</th>
+                                    <th class="w-1/4">Precio</th>
+                                    <th class="w-1/4">Cantidad</th>
+                                    <th class="w-1/4">Total</th>
+                                    <th class="w-1/4 mx-3 px-3">eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center items-center justify-between p-2 mx-2">
+                                <tr class="text-white bg-[#1E1E1E] p-2 border-b gap-1 border-white">
+                                    <td></td>
+                                    <td></td>
+                                    <td><h1 class="text-white text-lg item-center mr-6">No hay productos en el carrito</h1></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <!--* Plantilla de la lista de carrito 
+                                    <td><img class="w-full border-3 border-white rounded-lg m-3 md:w-13 : md:h-20 object-cover" src="/imagenes/masoTarot.png" alt></td>
+                                    <td><h1 class="text-white m-3">Maso de tarot</h1></td>
+                                    <td><h1 class="text-white">$25.000</h1></td>
+                                    <td><h1 class="text-white">1</h1></td>
+                                    <td><h1 class="text-white mr-2">$25.000</h1></td>
+                                    <td><button  class="eliminar-item-carrito bg-red-600 hover:bg-red-700 text-white font-bold w-6 h-6  rounded"><ion-icon name="close"></ion-icon></button></td>
+                                    -->  
+    
+                                </tr> 
+                                <!--todo: Aqui puedes agregar mas productos desde la base de datos, --!>
+                                <!--todo:  utilizando la plantilla de arriba-->
+                            </tbody>
+                        </table>
+                        <div class=" flex flex-col justify-center items-center mt-4 mb-4">
+                            <h2 class="subtotal text-3x1 text-white">Subtotal: $0</h2>
+                            <h1 class="total text-3x1 text-white">Total a pagar:  $0</h1>
+                            <button onclick="mostrarCrearOrden(this)" class="crear-orden bg-purple-700 my-2 hover:bg-yellow-500 text-white hover:text-black font-bold py-2 px-4 rounded">
+                                Crear orden
+                            </button>
+                        </div>
+                    </div>
+                </div>
+    
+    
+            </nav>
+        </header>
+
+    <!--! Contenido principal -->
+    <main class="container mx-auto py-8 px-4">
+        <h1 class="text-3xl font-bold text-white mb-8 text-center">Nuestros Productos</h1>
+        
+        <!--! Filtros -->
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+            <button class="todo bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-full">Todo</button>
+            <button class="altares bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-full">Altares</button>
+            <button class="tarot bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-full">Tarot</button>
+            <button class="velas bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-full">Velas</button>
+            <button class="amuletos bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-full">Amuletos</button>
+            
+        </div>
+
+        <!--! Grid de productos -->
+        <div class="lista-productos grid-productos grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+           
+           
+            <!--* Producto plantilla 
+            <div class="card bg-white/10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <img src="/imagenes/masoTarot.png" alt="Baraja de Tarot" class="img w-full h-48 object-cover">
+                <div class="info-card p-4">
+                    <h3 id="nombreP" class="titulo text-xl font-semibold text-white">Baraja de Tarot</h3>
+                    <p class="descripcion text-gray-300 mt-2">Baraja profesional para lecturas precisas</p>
+                    <div class="precio flex justify-between items-center mt-4">
+                        <span class=" text-yellow-400 font-bold">$25.000</span>
+                        <button class="agregar-carrito bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded" data-id="1">
+                            <i class="fas fa-cart-plus mr-2"></i>Agregar al carrito
+                        </button>
+                    </div>
+                </div>
+            </div> 
+            -->
+
+            
+        </div>
+    </main>
+
+    <!--! Footer -->
+    <footer class="bg-[#020D19] text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <img src="/imagenes/logo_oculta.png" alt="Logo" class="h-16">
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-yellow-400">
+                        <ion-icon name="logo-facebook" style="font-size: 25px;"></ion-icon>
+                    </a>
+                    <a href="https://instagram.com/oculta_tv" target="_blank" class="hover:text-yellow-400">
+                        <ion-icon name="logo-instagram" style="font-size: 25px;"></ion-icon>
+                    </a>
+                    <a href="http://youtube.com/@oculta_tv" target="_blank" class="hover:text-yellow-400">
+                        <ion-icon name="logo-youtube" style="font-size: 25px;"></ion-icon>
+                    </a>
+                    <a href="http://tiktok.com/Oculta_tv" target="_blank" class="hover:text-yellow-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50" fill="white" class="hover:fill-yellow-400 transition-colors">
+                            <path d="M41,4H9C6.243,4,4,6.243,4,9v32c0,2.757,2.243,5,5,5h32c2.757,0,5-2.243,5-5V9C46,6.243,43.757,4,41,4z M37.006,22.323 c-0.227,0.021-0.457,0.035-0.69,0.035c-2.623,0-4.928-1.349-6.269-3.388c0,5.349,0,11.435,0,11.537c0,4.709-3.818,8.527-8.527,8.527 s-8.527-3.818-8.527-8.527s3.818-8.527,8.527-8.527c0.178,0,0.352,0.016,0.527,0.027v4.202c-0.175-0.021-0.347-0.053-0.527-0.053 c-2.404,0-4.352,1.948-4.352,4.352s1.948,4.352,4.352,4.352s4.527-1.894,4.527-4.298c0-0.095,0.042-19.594,0.042-19.594h4.016 c0.378,3.591,3.277,6.425,6.901,6.685V22.323z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-6 pt-6 text-center">
+                <p>&copy; 2023 OcultaTarot. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="../components/nav.js"></script>
+    <script src="/components/carrito.js"></script>
+    <script src="tienda.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+</html>

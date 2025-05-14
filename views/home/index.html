@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Oculta Tarot Website</title>
+</head>
+<body class=" font-[Poppins] bg-gradient-to-t from-[#101720] to-[#060606]  h-screen mx-2">
+       <!--* notificacion -->
+        <p class="notification fixed top-2 right-2 p-2 bg-gradient-to-t from-[#471A73] to-[#000000] border-blue-600 border-3 rounded-lg text-white "></p>
+        <!--* fin notificacion -->
+       
+        <!--! Navbar section-->
+        <header class="bg-black">
+    
+            <nav class="flex justify-between items-center w-[92%] h-16 mx-auto">
+                <div>
+                    <img src="/imagenes/logo_oculta.png" alt="Logo" class="h-12">
+                </div>
+                <div class="nav-links md:static mx-2 absolute bg-black md:min-h-fit min-h-[40vh] left-0 right- top-[-100%] md:w-auto w-[97%] flex items-center px-5 ">
+                    <ul class="flex w-full md:flex-row  flex-col md:items-center text-white md:gap-[4vw] gap-8">
+                        <li><a href="/" class="hover:text-yellow-400 ">Inicio</a></li>
+                        <li><a href="/perfil" class="hover:text-yellow-400 ">Mi perfil</a></li>
+                        <li><a href="../tienda/index.html" class="hover:text-yellow-400">Tienda</a></li>
+                        <li><a href="/contacto" class="hover:text-yellow-400">Contacto</a></li>
+                        <li  class="">
+                            <button class="login-btn border border-white rounded-full px-2 hover:text-yellow-400">
+                                <a href="/login">Ingresar</a>
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="logout(this)" id="logout" class="logout-btn  border border-white rounded-full px-2  hover:text-yellow-400">
+                                Cerrar Sesión
+                            </button>
+                        </li>
+    
+    
+                    </ul>
+                </div>
+                
+                <div class="flex item-center gap-1  ">
+                     <button class="w-16 text-white px-5 py-2 rounded-full hover:bg-[#1E1En duration-300 ease-in-out md:block ">
+                        <svg onclick="onToggleMenu(this)" xmlns="http://www.w3.or1E] transitiog/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" name="menu" aria-label="menu"  class=" color-white text-3x1 cursor-pointer md:hidden">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                          </svg>
+                    </button>
+                    
+                    <button class="btn-carrito w-12 h-12 bg-[#1E1E1E] text-white my-1  rounded-full hover:bg-violet-900  transition duration-300 ease-in-out">
+                        <img class="w-12 h-12" src="/imagenes/icono_carrito.png" alt="logo_oculta">
+                    </button>
+                </div>
+    
+                <div class="seccion-carrito absolute top-14 right-0 w-full md:w-[60%] border-white border-solid border-3 bg-[#101720] h-[70%] z-50 overflow-auto hidden">
+                    <div class="carrito p-4">
+                        <h2 class="text-xl text-white">Carrito de Compras</h2>
+                        <table class="lista-carrito w-full mt-4 border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="text-white bg-[#1E1E1E] ">
+                                    <th class="w-1/4">Imagen</th>
+                                    <th class="w-1/4">Nombre</th>
+                                    <th class="w-1/4">Precio</th>
+                                    <th class="w-1/4">Cantidad</th>
+                                    <th class="w-1/4">Total</th>
+                                    <th class="w-1/4 mx-3 px-3">eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center items-center justify-between p-2 mx-2">
+                                <tr class="text-white bg-[#1E1E1E] p-2 border-b gap-1 border-white">
+                                    <td></td>
+                                    <td></td>
+                                    <td><h1 class="text-white text-lg item-center mr-6">No hay productos en el carrito</h1></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <!--* Plantilla de la lista de carrito 
+                                    <td><img class="w-full border-3 border-white rounded-lg m-3 md:w-13 : md:h-20 object-cover" src="/imagenes/masoTarot.png" alt></td>
+                                    <td><h1 class="text-white m-3">Maso de tarot</h1></td>
+                                    <td><h1 class="text-white">$25.000</h1></td>
+                                    <td><h1 class="text-white">1</h1></td>
+                                    <td><h1 class="text-white mr-2">$25.000</h1></td>
+                                    <td><button  class="eliminar-item-carrito bg-red-600 hover:bg-red-700 text-white font-bold w-6 h-6  rounded"><ion-icon name="close"></ion-icon></button></td>
+                                    -->  
+    
+                                </tr> 
+                                <!--todo: Aqui puedes agregar mas productos desde la base de datos, --!>
+                                <!--todo:  utilizando la plantilla de arriba-->
+                            </tbody>
+                        </table>
+                        <div class=" flex flex-col justify-center items-center mt-4 mb-4">
+                            <h2 class="subtotal text-3x1 text-white">Subtotal: $0</h2>
+                            <h1 class="total text-3x1 text-white">Total a pagar:  $0</h1>
+                            <button onclick="mostrarCrearOrden(this)" class="crear-orden bg-purple-700 my-2 hover:bg-yellow-500 text-white hover:text-black font-bold py-2 px-4 rounded">
+                                Crear orden
+                            </button>
+                        </div>
+                    </div>
+                </div>
+    
+    
+            </nav>
+        </header>
+
+
+    
+    <!--* Fin de la barra de navegacion -->
+
+    <!--* Inicio de la seccion principal -->
+    <div class="relative mt-2 max-w-[85%] mb-15 pb-35 m-auto justify-center items-center border border-solid border-3 border-blue-600  shadow-lg shadow-blue-500/50 w-full  rounded-lg bg-[#1E1E1E] flex flex-col items-center justify-center">
+        <img class="rounded-lg" src="/imagenes/fondoeditado.png" alt="">
+        <a class=" absolute text-xl bg-blue-600 hover:bg-blue-900 border-3 rounded-lg px-1 text-white top-[79%] md:top-[84%] fixed hover:text-yellow-400 " href="#explorar">Explorar</a>
+    </div>
+
+    
+
+        <!--* Inicio de la sección About Us -->
+        <section id="about-us" class="bg-[#1E1E1E] w-full py-10 mx-auto mt-20 flex flex-col items-center justify-center">
+            <h1 class="text-3xl text-white mb-6 text-center">Sobre Nosotros</h1>
+            <div class="max-w-[80%] text-center text-gray-400">
+            <p class="mb-4">
+                En Oculta Tarot, ofrecemos servicios esotéricos para guiarte en tu camino espiritual.
+            </p>
+            <p>
+                Creemos en la conexión espiritual y brindamos herramientas para explorar tu destino.
+            </p>
+            </div>
+            <div class="mt-8 flex flex-wrap justify-center gap-6">
+            <div class="bg-[#020D19] p-4 rounded-lg shadow-md w-64 text-center">
+                <img src="/imagenes/equipo.png" alt="Equipo" class="rounded-lg mb-3 object-cover w-full h-32">
+                <h2 class="text-lg text-white">Nuestro Equipo</h2>
+                <p class="text-gray-400 text-sm">Apasionados por el mundo del tarot.</p>
+            </div>
+            <div class="bg-[#020D19] p-4 rounded-lg shadow-md w-64 text-center">
+                <img src="/imagenes/mision.png" alt="Misión" class="rounded-lg mb-3 object-cover w-full h-32">
+                <h2 class="text-lg text-white">Nuestra Misión</h2>
+                <p class="text-gray-400 text-sm">Guiarte con confianza y sabiduría.</p>
+            </div>
+            <div class="bg-[#020D19] p-4 rounded-lg shadow-md w-64 text-center">
+                <img src="/imagenes/vision.png" alt="Visión" class="rounded-lg mb-3 object-cover w-full h-32">
+                <h2 class="text-lg text-white">Nuestra Visión</h2>
+                <p class="text-gray-400 text-sm">Liderar en servicios esotéricos.</p>
+            </div>
+            </div>
+        </section>
+        <!--* Fin de la sección About Us -->
+
+
+    <!--* Fin de la seccion principal -->    
+            
+    <!--* Inicio de la seccion de servicios -->
+    <section id="explorar" class="bg-[#020D19] w-[100%] mb-10 pb-10 mx-auto mt-10 flex flex-col items-center justify-center">
+        <h1 class="mt-3 text-3xl text-white">Nuestros Servicios</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+            <div class="bg-[#1E1E1E] p-5 pt-0 pl-0 pr-0 border-3 border-solid  border-white rounded-lg shadow-lg shadow-blue-500/50">
+                <img src="/imagenes/nocheLuna.png" alt="Servicio 1" class="rounded-lg mb-4 object-cover w-full h-16 overflow-hidden">
+                <a href="/contacto" class="ml-3 text-xl text-white hover:text-violet-600 hover:underline">Lectura de Tarot</a>
+                <p class="ml-3 text-gray-400">Descubre lo que el tarot tiene reservado para ti.</p>
+            </div>
+            <div class="bg-[#1E1E1E] p-5 pt-0 pl-0 pr-0 rounded-lg shadow-lg shadow-blue-500/50">
+                <img src="/imagenes/nocheLuna.png" alt="Servicio 2" class="rounded-lg mb-4 object-cover w-full h-16 overflow-hidden">
+                <a href="/contacto" class="ml-3 text-xl text-white hover:text-violet-600 hover:underline">Astrología</a>
+                <p class="ml-3 text-gray-400">Conoce tu futuro a través de las estrellas.</p>
+            </div>
+            <div class="bg-[#1E1E1E] p-5 pt-0 pl-0 pr-0 rounded-lg shadow-lg shadow-blue-500/50">
+                <img src="/imagenes/nocheLuna.png" alt="Servicio 2" class="rounded-lg mb-4 object-cover w-full h-16 overflow-hidden">
+                <a href="/tienda" class="ml-3 text-xl text-white  hover:text-violet-600 hover:underline ">Tienda Esoterica</a>
+                <p class="ml-3 text-gray-400">Los productos que buscas al alcance de un click</p>
+            </div>
+        </div>
+
+        <!-- Featured products -->
+         <div class="flex flex-col items-center justify-center mt-10">
+            <h2 class="text-2xl text-white">Productos destacados</h2>
+            <div class="lista-destacados grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+                <!-- Producto 1 -->
+            <div class=" bg-white/10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <img src="/imagenes/masoTarot.png" alt="Baraja de Tarot" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="text-xl font-semibold text-white">Baraja de Tarot</h3>
+                    <p class="text-gray-300 mt-2">Baraja profesional para lecturas precisas</p>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-yellow-400 font-bold">$25.000</span>
+                        <button class="agregar-carrito bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded" data-id="1">
+                            <i class="fas fa-cart-plus mr-2"></i>Agregar al carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto 2 -->
+            <div class="bg-white/10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <img src="/imagenes/velas.png" alt="Velas Mágicas" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="text-xl font-semibold text-white">Velas Mágicas</h3>
+                    <p class="text-gray-300 mt-2">Set de velas para rituales y meditación</p>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-yellow-400 font-bold">$15.000</span>
+                        <button class="agregar-carrito bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded" data-id="1">
+                            <i class="fas fa-cart-plus mr-2"></i>Agregar al carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto 3 -->
+            <div class="bg-white/10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <img src="/imagenes/amuleto.png" alt="Amuleto Protector" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="text-xl font-semibold text-white">Amuleto Protector</h3>
+                    <p class="text-gray-300 mt-2">Protección contra energías negativas</p>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-yellow-400 font-bold">$12.000</span>
+                        <button class="agregar-carrito bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded" data-id="1">
+                            <i class="fas fa-cart-plus mr-2"></i>Agregar al carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto 4 -->
+            <div class="bg-white/10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <img src="/imagenes/piedras.png" alt="Piedras Energéticas" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="text-xl font-semibold text-white">Piedras Energéticas</h3>
+                    <p class="text-gray-300 mt-2">Set de 7 piedras para equilibrio energético</p>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-yellow-400 font-bold">$18.000</span>
+                        <button class="agregar-carrito bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded" data-id="1">
+                            <i class="fas fa-cart-plus mr-2"></i>Agregar al carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+         </div>
+
+         <!-- * boton para ver mas productos el cual redirige a la tienda -->
+         <div class="flex justify-center w-full mt-6">
+            <a href="/tienda" class="bg-blue-600 hover:bg-blue-900 text-white px-6 py-2 rounded-lg text-center">Ver más productos</a>
+        </div>
+
+    </section>
+    <!--* Fin de la seccion de servicios -->
+     
+    <!--* Inicio de la seccion de contacto -->
+    <footer class="bg-[#020D19] text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <img src="/imagenes/logo_oculta.png" alt="Logo" class="h-16">
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-yellow-400">
+                        <ion-icon name="logo-facebook" style="font-size: 25px;"></ion-icon>
+                    </a>
+                    <a href="https://instagram.com/oculta_tv" target="_blank" class="hover:text-yellow-400">
+                        <ion-icon name="logo-instagram" style="font-size: 25px;"></ion-icon>
+                    </a>
+                    <a href="http://youtube.com/@oculta_tv" target="_blank" class="hover:text-yellow-400">
+                        <ion-icon name="logo-youtube" style="font-size: 25px;"></ion-icon>
+                    </a>
+                    <a href="http://tiktok.com/Oculta_tv" target="_blank" class="hover:text-yellow-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50" fill="white" class="hover:fill-yellow-400 transition-colors">
+                            <path d="M41,4H9C6.243,4,4,6.243,4,9v32c0,2.757,2.243,5,5,5h32c2.757,0,5-2.243,5-5V9C46,6.243,43.757,4,41,4z M37.006,22.323 c-0.227,0.021-0.457,0.035-0.69,0.035c-2.623,0-4.928-1.349-6.269-3.388c0,5.349,0,11.435,0,11.537c0,4.709-3.818,8.527-8.527,8.527 s-8.527-3.818-8.527-8.527s3.818-8.527,8.527-8.527c0.178,0,0.352,0.016,0.527,0.027v4.202c-0.175-0.021-0.347-0.053-0.527-0.053 c-2.404,0-4.352,1.948-4.352,4.352s1.948,4.352,4.352,4.352s4.527-1.894,4.527-4.298c0-0.095,0.042-19.594,0.042-19.594h4.016 c0.378,3.591,3.277,6.425,6.901,6.685V22.323z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-6 pt-6 text-center">
+                <p>&copy; 2023 OcultaTarot. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    
+
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <script src="../components/nav.js"></script>
+
+
+    <script src="/components/carrito.js"></script>
+    <script src="./home.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Registro</title>
+</head>
+<body class="font-[Poppins]">
+
+    <!--* notificacion -->
+        <p class="notification fixed top-2 right-2 p-2 bg-gradient-to-t from-[#471A73] to-[#000000] border-blue-600 border-3 rounded-lg text-white "></p>
+        <!--* fin notificacion -->
+       
+    <nav id="navegacion" class="fixed top-0 right-0 left-0 bg-blue-900 h-16">
+       
+
+        <section class="bg-[url('../imagenes/LoginRegisterBG2.jpg')] bg-cover bg-no-repeat bg-center h-screen items-center justify-center ">
+            <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+                <a href="/" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                    <img class="w-30 h-20 mr-2" src="/imagenes/logo_oculta.png" alt="logo">
+                        
+                </a>
+                <p class="mb-2 text-xl text-white">Bienvenido a Oculta Web</p>
+                <div class="border border-solid border-3 border-blue-600 shadow-lg shadow-blue-500/70 w-full bg-white rounded-lg  md:mt-0 sm:max-w-md xl:p-0 dark:bg-gradient-to-t from-[#471A73] to-[#000000]  dark:border-gray-700">
+                    <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                            Crea tu cuenta
+                        </h1>
+                        <form id="form-register" class="space-y-4 md:space-y-6" action="#">
+                            <div>
+                                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
+                               <input type="text" name="name" id="nameCreate" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Maria Perez" required="">
+                            </div> 
+                            <div>
+                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                               <input type="email" name="email" id="emailCreate" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg  block w-full p-2.5 " placeholder="name@example.com" required="">
+                            </div> 
+                            <div>
+                                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+                                <input type="password" name="password" id="passwordCreate" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg  block w-full p-2.5 " required="">
+                            </div>
+                            
+                            <button id="register-btn" type="submit" class="bg-violet-700 w-full text-white  hover:bg-violet-900 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Crear cuenta</button>
+                            <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                                Ya tienes una cuenta? <a href="/login" class="font-medium text-blue-600 hover:text-yellow-400 hover:underline dark:text-blue">Ingresar</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+          </section>
+    </nav>
+
+  <script src="../components/nav.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="register.js"></script>
+ <script src="../contacto/contacto.js"></script>
+</body>
+</html>

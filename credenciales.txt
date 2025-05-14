@@ -1,0 +1,53 @@
+multer
+nodemail
+coockie session
+---------------------------------
+#Gmail provisional de la web Oculta
+
+---   oculta123tarot@gmail.com
+---   O262626
+
+
+-------------------------------------
+
+
+#MongoDb - Base de datos
+***  iniciar sesion con Gmail  ***
+
+username: oculta
+password: 2626
+
+Cluster:   mongodb+srv://oculta:2626@cluster0.dzg9qwz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+**Por el momento esta configurado para poder acceder desde cualquier IP,
+ pero es recomendable configurarlo para solo permitir acceso 
+ desde la IP de tu servidor al terminar el desarrollo.
+
+
+-------------------------------------
+
+#Nodemailer token
+
+
+    user: "oculta123tarot@gmail.com",
+    pass: "dusthvupdonoizse",
+
+-------------------------------------
+
+     sb-b2kvl42102249@personal.example.com
+     ?v"2-TSZ
+
+     sb-rmdum14653910@business.example.com
+     BVZz$/0I
+
+
+
+
+
+
+-------------------------------------
+ # links asociados a la pagina 
+ 
+ https://instagram.com/oculta_tv
+ http://youtube.com/@oculta_tv
+ http://tiktok.com/Oculta_tv
