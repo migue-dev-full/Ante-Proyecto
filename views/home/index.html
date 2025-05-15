@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self'  https://*.paypal.com https://*.paypalobjects.com https://www.gstatic.com https://cdn.jsdelivr.net https://cdn.tailwindcss.com https://unpkg.com;">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Oculta Tarot Website</title>
@@ -108,9 +110,9 @@
     <!--* Fin de la barra de navegacion -->
 
     <!--* Inicio de la seccion principal -->
-    <div class="relative mt-2 max-w-[85%] mb-15 pb-35 m-auto justify-center items-center border border-solid border-3 border-blue-600  shadow-lg shadow-blue-500/50 w-full  rounded-lg bg-[#1E1E1E] flex flex-col items-center justify-center">
+    <div class="relative mt-2 max-w-[85%] mb-15 pb-35 m-auto justify-center items-center border border-solid border-3 border-blue-600  shadow-lg shadow-blue-500/50 w-full  rounded-lg bg-[#1E1E1E] flex flex-col">
         <img class="rounded-lg" src="/imagenes/fondoeditado.png" alt="">
-        <a class=" absolute text-xl bg-blue-600 hover:bg-blue-900 border-3 rounded-lg px-1 text-white top-[79%] md:top-[84%] fixed hover:text-yellow-400 " href="#explorar">Explorar</a>
+        <a class=" absolute text-xl bg-blue-600 hover:bg-blue-900 border-3 rounded-lg px-1 text-white top-[79%] md:top-[84%] hover:text-yellow-400 " href="#explorar">Explorar</a>
     </div>
 
     
@@ -244,7 +246,7 @@
     <!--* Fin de la seccion de servicios -->
      
     <!--* Inicio de la seccion de contacto -->
-    <footer class="bg-[#020D19] text-white py-8 mt-12">
+    <footer class="bg-[#000000] text-white py-8 mt-12">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
