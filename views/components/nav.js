@@ -8,6 +8,43 @@ const altares = document.querySelector('.altares');
 const todo = document.querySelector('.todo');
 const gridProductos = document.querySelector('.grid-productos');
 
+// Attach event listener for menu toggle button
+const menuToggleButton = document.querySelector('button > svg[name="menu"]');
+if (menuToggleButton) {
+    menuToggleButton.addEventListener('click', () => {
+        onToggleMenu();
+    });
+}
+
+// Attach event listener for logout button
+const logoutButton = document.getElementById('logout');
+if (logoutButton) {
+    logoutButton.addEventListener('click', () => {
+        logout();
+    });
+}
+
+// Attach event listener for profile link to restrict access if not logged in
+const perfilLink = document.querySelector('a[href="/perfil"]');
+if (perfilLink) {
+    perfilLink.addEventListener('click', (e) => {
+        const user = JSON.parse(localStorage.getItem('user')) || null;
+        if (!user) {
+            e.preventDefault();
+            const notificacion = document.querySelector('.notification');
+            notificacion.textContent = 'Debes iniciar sesión para acceder a esta sección.';
+            notificacion.style.color = 'red';
+            notificacion.style.display = 'block';
+            notificacion.style.zIndex = '1000';
+            setTimeout(() => {
+            notificacion.style.display = 'none';
+            window.location.href = '/login';
+            }, 3000);
+        }
+    });
+}
+
+
 //* Mostrar el menu de la nav bar al hacer click en el icono de hamburguesa
 function onToggleMenu(e) {
     navLinks.forEach(link => {
@@ -129,6 +166,7 @@ function fullProductsList () {
 //* Logout
 async function logout() {
     window.localStorage.removeItem('user');
+    window.localStorage.removeItem('articulosCarrito');
     window.sessionStorage.removeItem('user');
     window.location.href = '/login';
 }
@@ -145,11 +183,48 @@ function validateLocalStorageUser() {
         loginBtns.forEach(btn => btn.classList.remove('hidden'));
         logoutBtns.forEach(btn => btn.classList.add('hidden'));
     }
+    if (user.expiration && Date.now() > user.expiration) {
+        localStorage.removeItem('user');
+        localStorage.removeItem('articulosCarrito');
+        notificacion.textContent = 'Tu sesión ha expirado. Por favor, inicia sesión nuevamente.';
+        notificacion.style.color = 'red';
+        notificacion.style.display = 'block';
+        notificacion.style.zIndex = '1000';
+        setTimeout(() => {
+            notificacion.style.display = 'none';
+             window.sessionStorage.removeItem('user');
+            window.location.href = '/login';
+        }, 3000);
+       
+    }
 }
+
+function restrictAccess() {
+
+    const user = JSON.parse(localStorage.getItem('user')) || null; 
+    const notificacion = document.querySelector('.notification');
+    console.log('restrictAccess called. User:', user);
+    if (!user) {
+        notificacion.textContent = 'Debes iniciar sesión para acceder a esta sección.';
+        notificacion.style.color = 'red';
+        notificacion.style.display = 'block';
+        notificacion.style.zIndex = '1000';
+        setTimeout(() => {
+            notificacion.style.display = 'none';
+            window.location.href = '/login';
+        }, 3000);
+       
+    }
+}
+
 
 
         document.addEventListener('DOMContentLoaded', () => {
             validateLocalStorageUser();
+
+            
+
+            
         });
 
 

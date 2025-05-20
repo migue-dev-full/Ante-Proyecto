@@ -28,7 +28,7 @@ function mostrarProductos(productos) {
         <div class="card bg-white/10 backdrop-blur-sm rounded-lg h-120 w-full overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
                 <img src="${producto.imagen}" alt="Baraja de Tarot" class="img w-full h-48 object-cover">
                 <div class="info-card p-4">
-                    <h3 class="titulo text-xl font-semibold text-white">${producto.nombre}</h3>
+                    <h3 class="titulo text-xl font-semibold text-white">${producto.nombre.slice(0, 25)}</h3>
                     <p class="descripcion text-gray-300 mt-2 overflow-hidden">${producto.descripcion.slice(0, 25)}...}</p>
                     <div class="precio flex justify-between items-center mt-4">
                         <span class="text-yellow-400 font-bold">${producto.precio}</span>

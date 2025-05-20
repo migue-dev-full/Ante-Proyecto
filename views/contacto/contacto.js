@@ -46,3 +46,7 @@ contactForm.addEventListener('submit', async (e) => {
     }
 });
 
+
+        document.addEventListener('DOMContentLoaded', () => {
+            validateLocalStorageUser();
+        });

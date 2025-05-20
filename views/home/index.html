@@ -4,23 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self'  https://*.paypal.com https://*.paypalobjects.com https://www.gstatic.com https://cdn.jsdelivr.net https://cdn.tailwindcss.com https://unpkg.com;">
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' https://*.paypal.com https://*.paypalobjects.com https://www.gstatic.com https://cdn.jsdelivr.net https://cdn.tailwindcss.com https://unpkg.com;">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Oculta Tarot Website</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&display=swap" rel="stylesheet">
+
 </head>
-<body class=" font-[Poppins] bg-gradient-to-t from-[#101720] to-[#060606]  h-screen mx-2">
+<body class=" font-[arima] bg-black  h-screen mx-2">
        <!--* notificacion -->
         <p class="notification fixed top-2 right-2 p-2 bg-gradient-to-t from-[#471A73] to-[#000000] border-blue-600 border-3 rounded-lg text-white "></p>
         <!--* fin notificacion -->
        
-        <!--! Navbar section-->
-        <header class="bg-black">
+      <!--! Navbar -->
+        <header class="bg-black ">
     
-            <nav class="flex justify-between items-center w-[92%] h-16 mx-auto">
-                <div>
-                    <img src="/imagenes/logo_oculta.png" alt="Logo" class="h-12">
+            <nav class=" flex justify-between items-center w-[92%] h-24 mx-auto">
+                <div class="flex items-center h-18">
+                    <img src="/imagenes/logo_oculta.png" alt="Logo" class="h-16 scale-150">
                 </div>
                 <div class="nav-links md:static mx-2 absolute bg-black md:min-h-fit min-h-[40vh] left-0 right- top-[-100%] md:w-auto w-[97%] flex items-center px-5 ">
                     <ul class="flex w-full md:flex-row  flex-col md:items-center text-white md:gap-[4vw] gap-8">
@@ -28,23 +33,18 @@
                         <li><a href="/perfil" class="hover:text-yellow-400 ">Mi perfil</a></li>
                         <li><a href="../tienda/index.html" class="hover:text-yellow-400">Tienda</a></li>
                         <li><a href="/contacto" class="hover:text-yellow-400">Contacto</a></li>
-                        <li  class="">
-                            <button class="login-btn border border-white rounded-full px-2 hover:text-yellow-400">
-                                <a href="/login">Ingresar</a>
-                            </button>
-                        </li>
-                        <li>
-                            <button onclick="logout(this)" id="logout" class="logout-btn  border border-white rounded-full px-2  hover:text-yellow-400">
-                                Cerrar Sesión
-                            </button>
-                        </li>
-    
-    
+                        <!-- Removed login and logout buttons from here -->
                     </ul>
                 </div>
                 
-                <div class="flex item-center gap-1  ">
-                     <button class="w-16 text-white px-5 py-2 rounded-full hover:bg-[#1E1En duration-300 ease-in-out md:block ">
+                <div class="flex item-center   ">
+                    <button class="login-btn border border-white text-white rounded-full px-2 hover:text-yellow-400 self-center">
+                        <a href="/login">Ingresar</a>
+                    </button>
+                    <button onclick="logout(this)" id="logout" class="logout-btn border border-white text-white rounded-full px-2 hover:text-yellow-400 self-center">
+                        Cerrar Sesión
+                    </button>
+                    <button class="w-16 text-white px-5 py-2 rounded-full hover:bg-[#1E1En duration-300 ease-in-out md:block ">
                         <svg onclick="onToggleMenu(this)" xmlns="http://www.w3.or1E] transitiog/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" name="menu" aria-label="menu"  class=" color-white text-3x1 cursor-pointer md:hidden">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                           </svg>
@@ -55,7 +55,7 @@
                     </button>
                 </div>
     
-                <div class="seccion-carrito absolute top-14 right-0 w-full md:w-[60%] border-white border-solid border-3 bg-[#101720] h-[70%] z-50 overflow-auto hidden">
+                <div class="seccion-carrito absolute top-20 right-0 w-full md:w-[60%] border-white border-solid border-3 bg-[#101720] h-[70%] z-50 overflow-auto hidden">
                     <div class="carrito p-4">
                         <h2 class="text-xl text-white">Carrito de Compras</h2>
                         <table class="lista-carrito w-full mt-4 border-collapse border border-gray-300">
@@ -105,7 +105,6 @@
             </nav>
         </header>
 
-
     
     <!--* Fin de la barra de navegacion -->
 
@@ -118,7 +117,7 @@
     
 
         <!--* Inicio de la sección About Us -->
-        <section id="about-us" class="bg-[#1E1E1E] w-full py-10 mx-auto mt-20 flex flex-col items-center justify-center">
+        <section id="about-us" class="bg-[#1E1E1E] w-full py-20 mx-auto mt-20 mb-20 flex flex-col items-center justify-center">
             <h1 class="text-3xl text-white mb-6 text-center">Sobre Nosotros</h1>
             <div class="max-w-[80%] text-center text-gray-400">
             <p class="mb-4">
@@ -154,7 +153,7 @@
     <!--* Inicio de la seccion de servicios -->
     <section id="explorar" class="bg-[#020D19] w-[100%] mb-10 pb-10 mx-auto mt-10 flex flex-col items-center justify-center">
         <h1 class="mt-3 text-3xl text-white">Nuestros Servicios</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-5">
             <div class="bg-[#1E1E1E] p-5 pt-0 pl-0 pr-0 border-3 border-solid  border-white rounded-lg shadow-lg shadow-blue-500/50">
                 <img src="/imagenes/nocheLuna.png" alt="Servicio 1" class="rounded-lg mb-4 object-cover w-full h-16 overflow-hidden">
                 <a href="/contacto" class="ml-3 text-xl text-white hover:text-violet-600 hover:underline">Lectura de Tarot</a>
@@ -168,7 +167,7 @@
             <div class="bg-[#1E1E1E] p-5 pt-0 pl-0 pr-0 rounded-lg shadow-lg shadow-blue-500/50">
                 <img src="/imagenes/nocheLuna.png" alt="Servicio 2" class="rounded-lg mb-4 object-cover w-full h-16 overflow-hidden">
                 <a href="/tienda" class="ml-3 text-xl text-white  hover:text-violet-600 hover:underline ">Tienda Esoterica</a>
-                <p class="ml-3 text-gray-400">Los productos que buscas al alcance de un click</p>
+                <p class="ml-3 pr-4 text-gray-400">Los productos que buscas al alcance de un click</p>
             </div>
         </div>
 

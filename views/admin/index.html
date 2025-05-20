@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Oculta Admin</title>
+      
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&display=swap" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
-<body class="bg-[#060606] font-[Poppins]">
+<body class="bg-[#060606] font-[arima]">
 
     <!--* notificacion -->
         <p class="notification fixed top-2 right-2 p-2 bg-gradient-to-t from-[#471A73] to-[#000000] border-blue-600 border-3 rounded-lg text-white "></p>
@@ -16,13 +21,13 @@
        
 <div class="flex flex-col md:flex-row h-screen">
         <!-- Sidebar/Navbar -->
-        <div class="w-full md:w-64 bg-[#011222] text-white p-4 flex flex-col md:block">
+        <div class="w-full md:w-64 bg-[#15191d] text-white p-4 flex flex-col md:block">
             <!-- Mobile menu button --> 
             <button id="mobile-menu-button" class="md:hidden self-end pb-0 p-1 rounded hover:bg-purple-700">
                 <ion-icon name="menu-outline" class="text-2xl"></ion-icon>
             </button>
             <a href="/" class="top-0 left-0 justify-center m-auto items-center my-10 text-2xl font-semibold text-gray-900 dark:text-white">
-                    <img href="/" src="../imagenes/logo_oculta.png" alt="Logo" class="md:h-10 md:w-20 md:ml-4 h-15 w-44">
+                    <img href="/" src="../imagenes/logo_oculta.png" alt="Logo" class="ml-3 md:h-10 md:w-20 md:ml-4 h-18 w-44 scale-150">
                 </a>
 
             <div class="items-center justify-center mb-8">
@@ -65,17 +70,17 @@
                 
                 <div class="bg-white rounded-lg shadow ">
                     <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                        <thead class="bg-purple-900 ">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Imagen</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precio</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoría</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Imagen</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Nombre</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Precio</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Descripción</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Categoría</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="product-list" class="bg-white divide-y divide-gray-200">
+                        <tbody id="product-list" class="bg-zinc-400 divide-y divide-black">
                             <!-- Sample data - will be populated dynamically -->
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">imagen</td>
@@ -97,17 +102,17 @@
             <div id="orders-section" class="section hidden">
                 <h2 class="text-2xl font-bold text-purple-800 mb-6">Gestión de Pedidos</h2>
                 
-                <div class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="bg-zinc-400 rounded-lg shadow overflow-hidden">
                     <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                        <thead class="bg-purple-900">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID Pedido</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usuario</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Monto</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Detalles</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">ID Pedido</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Usuario</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Monto</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Detalles</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
+                        <tbody class="bg-zinc-400 divide-y divide-black">
                             <!-- Sample data - will be populated dynamically -->
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">#ORD-12345</td>
@@ -128,15 +133,15 @@
                 
                 <div class="bg-white rounded-lg shadow overflow-hidden">
                     <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                        <thead class="bg-purple-950">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rol</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acción</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Nombre</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Email</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Rol</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Acción</th>
                             </tr>
                         </thead>
-                        <tbody class=" lista-usuarios-admin bg-white divide-y divide-gray-200">
+                        <tbody class=" lista-usuarios-admin bg-zinc-400 divide-y divide-black">
                             <!-- Sample data - will be populated dynamically -->
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">María González</td>

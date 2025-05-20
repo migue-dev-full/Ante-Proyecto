@@ -23,7 +23,7 @@ console.log(user.nombre);
         <h2 class="text-xl font-semibold mb-4">Información Básica</h2>
         <p><strong>Nombre:</strong> ${user.nombre}</p>
         <p><strong>Correo:</strong> ${user.email}</p>
-        <button  class="bg-purple-800 hover:bg-purple-600 p-2 mt-4 rounded-lg"> <a href="/admin">Administrar Tienda</a> </button>`;
+        <button  class="bg-purple-800 hover:bg-purple-600 text-white p-2 mt-4 rounded-lg"> <a href="/admin">Administrar Tienda</a> </button>`;
     } 
 
 }
@@ -37,8 +37,8 @@ console.log(user.nombre);
 
     tabs.forEach((tab, index) => {
         tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('border-yellow-400', 'text-yellow-400'));
-            tab.classList.add('border-yellow-400', 'text-yellow-400');
+            tabs.forEach(t => t.classList.remove('border-purple-700', 'purple-700'));
+            tab.classList.add('border-purple-700', 'text-purple-700');
 
             tabContents.forEach(content => content.classList.add('hidden'));
             tabContents[index].classList.remove('hidden');
@@ -69,14 +69,14 @@ console.log(user.nombre);
 
 }
 
-
-//! Mostrar pedidos del usuario en el perfil
 function mostrarPedidosUser(pedidos) {
     const pedidosContainer = document.getElementById('pedidos-container');
     pedidosContainer.innerHTML = '';
+    // Sort pedidos from newest to oldest by fecha
+    pedidos.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
     pedidos.forEach((pedido, index) =>
         pedidosContainer.innerHTML += `
-        <tr>
+        <tr class="border ${pedido.estado.toLowerCase() === 'pagado' ? 'bg-green-300' : 'bg-gray-100'} hover:bg-gray-300">
             <td class="border border-gray-300 px-4 py-2 text-center"> 
             <button data-index="${index}" class="ver-pedido-btn hover:bg-purple-400 hover:text-black bg-purple-700 mx-4 mt-2 px-1 pt-1 justify-center items-center rounded-full text-white flex-column"> <ion-icon name="filter-circle-outline"></ion-icon> </button>
              ${pedido._id} </td>
@@ -125,44 +125,58 @@ function mostrarDetallePedido(pedido) {
         <ul class="list-disc list-inside mb-4 bg-[#E1DAD3] rounded-lg p-2"> <span class="text-purple-800">
             ${Array.isArray(pedido.products) ? pedido.products.map(prod => `<li>${prod.id_producto?.nombre || prod.id_producto?.name || 'Nombre no disponible'} x${prod.cantidad}</li>`).join('') : '<li>No hay productos disponibles</li>'}
         </span></ul>
-        <button id="pagar-btn" action="/pay" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Pagar</button>
+        ${pedido.estado.toLowerCase() === 'pagado' ? '' : '<button id="pagar-btn" action="/pay" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Pagar</button>'}
         <button id="cerrar-detalle-btn" class="ml-4 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded">Cerrar</button>
     `;
 
     document.body.appendChild(card);
 
-    // Add event listener to pay button
+    // Add event listener to pay button if it exists
     const pagarBtn = document.getElementById('pagar-btn');
-    pagarBtn.addEventListener('click', () => {
-        alert(`Procesando pago para el pedido ${pedido._id}`);
-        // Here you can add actual payment logic
-        axios.post('/paypal/order', {
+    if (pagarBtn) {
+        pagarBtn.addEventListener('click', () => {
+            const notification = document.querySelector('.notification');
+            notification.textContent = 'Redirigiendo a PayPal...';
+            notification.style.color = 'white';
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+                
+            // Save pedido ID to localStorage for later use
+            localStorage.setItem('pedidoId', pedido._id);
+            }, 3000);
             
-            articulosCarrito: {
-                total: pedido.total,
-                items: pedido.products
-            }
-        })
-        .then(response => {
-           console.log(response.data);
            
-           
-           // ;
-            console.log('Pedido actualizado:', pedido);
-            console.log('Orden de PayPal creada:', response.data);
+
+            // Here you can add actual payment logic
+            axios.post('/paypal/order', {
+                
+                articulosCarrito: {
+                    total: pedido.total,
+                    items: pedido.products
+                }
+            })
+            .then(response => {
+               console.log(response.data);
+               
+               
+               // ;
+                console.log('Pedido actualizado:', pedido);
+                console.log('Orden de PayPal creada:', response.data);
+                
+                window.location.href = response.data.approval_url; // Redirect to PayPal approval URL
+                
+                
+            })
+            .catch(error => {
+                console.error('Error creando orden de PayPal:', error);
+                alert('Error al procesar el pago. Intente nuevamente.');
+            });
+            // Redirect to payment page or handle payment logic
+            // window.location.href = '/pay';
             
-            window.location.href = response.data.approval_url; // Redirect to PayPal approval URL
-            
-            
-        })
-        .catch(error => {
-            console.error('Error creando orden de PayPal:', error);
-            alert('Error al procesar el pago. Intente nuevamente.');
         });
-        // Redirect to payment page or handle payment logic
-        // window.location.href = '/pay';
-        
-    });
+    }
 
     // Add event listener to close button
     const cerrarBtn = document.getElementById('cerrar-detalle-btn');
@@ -175,6 +189,8 @@ function mostrarDetallePedido(pedido) {
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    
     cambiarTab();
+    validateLocalStorageUser();
     ajustarInfoUser(user); // Llamar a la función para ajustar la información del usuario al cargar la página
 });

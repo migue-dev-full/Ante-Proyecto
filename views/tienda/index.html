@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self'  https://*.paypal.com https://*.paypalobjects.com https://www.gstatic.com https://cdn.jsdelivr.net https://cdn.tailwindcss.com https://unpkg.com;">
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' https://*.paypal.com https://*.paypalobjects.com https://www.gstatic.com https://cdn.jsdelivr.net https://cdn.tailwindcss.com https://unpkg.com; frame-src 'self' blob: https://*.paypal.com https://*.paypal.cn https://*.paypalobjects.com https://objects.paypal.cn https://*.cardinalcommerce.com https://www.google.com https://static.novacredit.com https://*.qualtrics.com https://bid.g.doubleclick.net;">
     <title>Tienda OcultaTarot</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&display=swap" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-gradient-to-t from-[#000000] to-[#471A73] min-h-screen font-[Poppins]">
+<body class="bg-gradient-to-t from-[#000000] to-[#471A73] min-h-screen font-[arima]">
 
     <!--* notificacion -->
         <p class="notification fixed top-2 right-2 p-2 bg-gradient-to-t from-[#471A73] to-[#000000] border-blue-600 border-3 rounded-lg text-white "></p>
@@ -17,9 +22,9 @@
         <!--! Navbar -->
         <header class="bg-black">
     
-            <nav class="flex justify-between items-center w-[92%] h-16 mx-auto">
-                <div>
-                    <img src="/imagenes/logo_oculta.png" alt="Logo" class="h-12">
+            <nav class="flex justify-between items-center w-[92%] h-24 mx-auto">
+                <div class="flex items-center h-18">
+                    <img src="/imagenes/logo_oculta.png" alt="Logo" class="h-16 scale-150">
                 </div>
                 <div class="nav-links md:static mx-2 absolute bg-black md:min-h-fit min-h-[40vh] left-0 right- top-[-100%] md:w-auto w-[97%] flex items-center px-5 ">
                     <ul class="flex w-full md:flex-row  flex-col md:items-center text-white md:gap-[4vw] gap-8">
@@ -27,23 +32,18 @@
                         <li><a href="/perfil" class="hover:text-yellow-400 ">Mi perfil</a></li>
                         <li><a href="../tienda/index.html" class="hover:text-yellow-400">Tienda</a></li>
                         <li><a href="/contacto" class="hover:text-yellow-400">Contacto</a></li>
-                        <li  class="">
-                            <button class="login-btn border border-white rounded-full px-2 hover:text-yellow-400">
-                                <a href="/login">Ingresar</a>
-                            </button>
-                        </li>
-                        <li>
-                            <button onclick="logout(this)" id="logout" class="logout-btn  border border-white rounded-full px-2  hover:text-yellow-400">
-                                Cerrar Sesión
-                            </button>
-                        </li>
-    
-    
+                        <!-- Removed login and logout buttons from here -->
                     </ul>
                 </div>
                 
-                <div class="flex item-center gap-1  ">
-                     <button class="w-16 text-white px-5 py-2 rounded-full hover:bg-[#1E1En duration-300 ease-in-out md:block ">
+                <div class="flex item-center   ">
+                    <button class="login-btn border border-white text-white rounded-full px-2 hover:text-yellow-400 self-center">
+                        <a href="/login">Ingresar</a>
+                    </button>
+                    <button onclick="logout(this)" id="logout" class="logout-btn border border-white text-white rounded-full px-2 hover:text-yellow-400 self-center">
+                        Cerrar Sesión
+                    </button>
+                    <button class="w-16 text-white px-5 py-2 rounded-full hover:bg-[#1E1En duration-300 ease-in-out md:block ">
                         <svg onclick="onToggleMenu(this)" xmlns="http://www.w3.or1E] transitiog/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" name="menu" aria-label="menu"  class=" color-white text-3x1 cursor-pointer md:hidden">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                           </svg>

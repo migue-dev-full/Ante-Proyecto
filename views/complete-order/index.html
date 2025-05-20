@@ -5,24 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="script-src 'self'  https://*.paypal.com https://*.paypalobjects.com https://www.gstatic.com https://cdn.jsdelivr.net https://cdn.tailwindcss.com https://unpkg.com;">
 
-
     <title>Complete</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&display=swap" rel="stylesheet">
+
+
+        <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 </head>
-<body class="font-[Poppins]">
+<body class="font-[arima]">
     <!--* notificacion -->
         <p class="notification fixed top-2 right-2 p-2 bg-gradient-to-t from-[#471A73] to-[#000000] border-blue-600 border-3 rounded-lg text-white "></p>
         <!--* fin notificacion -->
 
-        <div class="flex flex-col items-center justify-center h-screen bg-gradient-to-t from-[#471A73] to-[#000000]">
-            <img src="/imagenes/logo_oculta.png" alt="Logo Oculta Tarot" class=" w-24 h-auto object-contain" />
-
+        <div class="flex flex-col  items-center justify-center mb-6 pb-8 bg-gradient-to-t from-[#471A73] to-[#000000] ">
+            <img src="/imagenes/logo_oculta.png" alt="Logo Oculta Tarot" class="w-30 object-contain scale-50 top-0 " />
+            <h1 class="text-4xl font-extrabold mb-2 text-center text-white">¡Compra Exitosa!</h1>
+            <p class="mb-2 text-lg text-center text-white">Gracias por tu compra. Tu orden ha sido aprobada y está siendo procesada.</p>
+            <a href="/perfil" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-full transition duration-300 mb-4 text-center">
+                Volver a Mi Perfil
+            </a>
+            <button id="downloadReceiptBtn" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-full transition duration-300 text-center">
+                Descargar recibo
+            </button>
         </div>
-        <h1 class="text-4xl font-extrabold mb-4">¡Compra Exitosa!</h1>
-        <p class="mb-6 text-lg">Gracias por tu compra. Tu orden ha sido aprobada y está siendo procesada.</p>
-        <a href="/perfil" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-full transition duration-300">
-            Volver a Mi Perfil
-        </a>
 
-
+        <script src="complete.js"></script>
 </body>
 </html>

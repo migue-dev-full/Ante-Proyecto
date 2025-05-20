@@ -17,6 +17,7 @@ let valpassword = false;
 const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
 
+
 loginEmail.addEventListener("input", (e) => {
     valemail = emailRegex.test(e.target.value);
     if (valemail) {
@@ -54,8 +55,18 @@ loginButton.addEventListener('click', async (e) => {
 
         if (response.data && response.data.success && response.data.user) {
             const user = response.data.user;
-            localStorage.setItem('user', JSON.stringify(user));
+            // Guarda el usuario en localStorage con un tiempo de expiración de 1 hora
+            const expirationTime = Date.now() + 15 * 60 * 1000;      
+            localStorage.setItem('user', JSON.stringify({ ...user, expiration: expirationTime }));
+
             
+            // Configura un temporizador para eliminar el usuario cuando expire
+            setTimeout(() => {
+                localStorage.removeItem('user');
+                // Opcional: redirigir al login o recargar la página para forzar logout
+                window.location.href = '/login';
+            }, expirationTime - Date.now());
+
 
              notificacion.innerHTML =   ('Inicio de sesión exitoso. Bienvenido: ' + `${user.nombre}`)
              setTimeout (() =>  

@@ -20,8 +20,9 @@ const usuarioSchema = new mongoose.Schema({
      rol: {
          type: String,
          default: "Cliente"
-     }
-
+     },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 })
 
 //configurar la respuesta del usuario en el esquema

@@ -45,15 +45,25 @@ registerButton.addEventListener("click", (e) => {
             email: registerEmail.value,
             password: registerPassword.value
         };
-        alert(`Usuario ${user.name} creado exitosamente`);
+        
+        const notification = document.querySelector(".notification");
+        
+                
+        const notificacion = document.querySelector('.notification');
+        notificacion.textContent = 'El usuario se ha registrado correctamente';
+        notificacion.style.color = 'white';
+        notificacion.style.display = 'block';
+        notificacion.style.zIndex = '1000';
+        
         setTimeout(() => {
-            window.location.href = "/login";
-        }, 2000); //redireccionar a la pagina de login
+            notificacion.style.display = 'none';
+            window.location.href = '/login';
+        }, 3000);
      
     } else {
         // Mostrar mensaje de error o alerta
         
-        alert("Por favor, completa todos los campos correctamente.");
+        
         console.log("Por favor, completa todos los campos correctamente.");
     }
 });
@@ -72,7 +82,7 @@ registerButton.addEventListener('click', async e => { //async va ahi
         //si esta vacio =>
 
         //   console.log("El campo esta vacio")
-        notificacion.innerHTML = `Los campos  no debe estar vacio`
+        notificacion.innerHTML = `Los campos  no deben estar vacio`
         notificacion.classList.add('show-notification')
         setTimeout(() => {
             notificacion.classList.remove('show-notification')
@@ -80,8 +90,14 @@ registerButton.addEventListener('click', async e => { //async va ahi
         }, 2000)
         //otro caso para que no vuelva a crear el mismo usuario
     } else if (user === users) {
+        
         console.log("El usuario ya existe")
-        alert = `El usuario ${registerName.value} ya existe`;
+        notificacion.innerHTML = `El usuario ${registerName.value} ya existe`
+        notificacion.classList.add('show-notification')
+        setTimeout(() => {
+            notificacion.classList.remove('show-notification')
+
+        }, 2000)
 
     } else {
         //caso esta lleno, y no existe en json.db registramos
@@ -110,12 +126,17 @@ registerButton.addEventListener('click', async e => { //async va ahi
                 password: password 
             });
             console.log('Backend response:', response.data);
-            alert = `Usuario ${nombre} creado exitosamente`;
+            notificacion.innerHTML = `Usuario ${nombre} creado exitosamente`;
+            notificacion.classList.add('show-notification');
+            setTimeout(() =>
+                {
+                    notificacion.classList.remove('show-notification');
+                    }, 2000);
+            
             await new user(nombre, email, password).save(); // Guardar el nuevo usuario en la base de datos
         } catch (error) {
             console.error('Registration error:', error.response?.data || error.message);
-            notificacion.innerHTML = `Error al registrar: ${error.response?.data?.error || 'Error desconocido'}`;
-            notificacion.classList.add('show-notification');
+           
             setTimeout(() => {
                 notificacion.classList.remove('show-notification');
             }, 2000);

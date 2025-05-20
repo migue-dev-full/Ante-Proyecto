@@ -8,7 +8,7 @@ const pedidoSchema = new mongoose.Schema({
     address: String,
     postal_code: String,
     fecha: { type: Date, default: Date.now },
-    paypalId: { orderId: String },
+    paypalId: String,
     products: [
         {
             id_producto: { type: Schema.Types.ObjectId, ref: 'Producto' },

@@ -70,8 +70,14 @@ productRouter.delete('/:_id', async (request, response) => {
     
     try {
     const productoEliminado = await Producto.findByIdAndDelete(request.params._id);
-        return response.status(200).json({ msg: 'Producto eliminado exitosamente' });
-        
+
+        notification.textContent = 'Producto eliminado exitosamente';
+        notification.style.color = 'white';
+        notification.style.display = 'block';
+        notification.style.zIndex = '1000';
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 3000);
     } catch (error) {
         console.error('Error al eliminar el producto:', error);
         return response.status(500).json({ error: 'Error interno al eliminar el producto' });

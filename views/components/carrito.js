@@ -11,6 +11,15 @@ const total = document.querySelector('.total')
 
 let articulosCarrito = []
 
+// Load cart from localStorage on script load
+document.addEventListener('DOMContentLoaded', () => {
+    const storedCart = localStorage.getItem('articulosCarrito');
+    if (storedCart) {
+        articulosCarrito = JSON.parse(storedCart);
+        carritoHTML();
+    }
+});
+
 cargarEventListener();
 function cargarEventListener(){
 
@@ -52,14 +61,30 @@ function cargarEventListener(){
 
 function agregarProductos(e){
     e.preventDefault();
-    
+    const user = JSON.parse(localStorage.getItem('user')) || null;
+    if(!user){
+        restrictAccess();
+        return;
+    }
+
 
     if(e.target.classList.contains('agregar-carrito')){
        console.log('Producto element:', e.target.parentElement.parentElement.parentElement);
        
         const producto = e.target.parentElement.parentElement.parentElement;
         console.log(producto)
+
         leerDatosProducto(producto);
+        guardarCarritoLocalStorage();
+
+        const notificacion = document.querySelector('.notification');
+        notificacion.textContent = 'Producto agregado al carrito.';
+        notificacion.style.color = 'white';
+        notificacion.style.display = 'block';
+        notificacion.classList.add('z-[1000]');
+        setTimeout(() => {
+            notificacion.style.display = 'none';
+        }, 3000);
 
     }
 }
@@ -128,6 +153,7 @@ function carritoHTML(){
 
     calcularSubtotal();
     calcularTotal();
+    guardarCarritoLocalStorage();
 }
 //* Calcular Subtotal
 function calcularSubtotal(){
@@ -224,6 +250,11 @@ function eliminarProducto(e){
     }
 
     carritoHTML();
+}
+
+// Save cart to localStorage
+function guardarCarritoLocalStorage() {
+    localStorage.setItem('articulosCarrito', JSON.stringify(articulosCarrito));
 }
 
 
@@ -348,8 +379,9 @@ function mostrarCrearOrden(e){
                 
                 const notificacion = document.querySelector('.notification');
                 notificacion.textContent = 'Orden creada correctamente.';
-                notificacion.style.color = 'green';
+                notificacion.style.color = 'white';
                 notificacion.style.display = 'block';
+                notificacion.style.zIndex = '1000';
                 setTimeout(() =>
                     notificacion.style.display = 'none', 3000);
                 form.reset();
@@ -367,6 +399,7 @@ function mostrarCrearOrden(e){
                 notificacion.textContent = 'Error al crear la orden.';
                 notificacion.style.color = 'red';   
                 notificacion.style.display = 'block';
+                notificacion.style.zIndex = '1000';
                 setTimeout(() =>
                     notificacion.style.display = 'none', 3000);
             });
@@ -377,4 +410,4 @@ function mostrarCrearOrden(e){
        
     });
 }
-                    
+            

@@ -1,3 +1,5 @@
+const notification = document.querySelector('.notification');
+
 //* Toggle mobile menu btn
 document.getElementById('mobile-menu-button')?.addEventListener('click', function() {
     const nav = document.querySelector('nav');
@@ -40,13 +42,13 @@ function toggleOrderDetails(button) {
 
         // Build product details string
         const productDetails = order.products.map(p => `${p.id_producto.nombre || p.id_producto} (${p.cantidad})`).join(', ');
-
+        
         orderDetailsCell.innerHTML = `
             <div class="order-details-content bg-gray-700 p-4 rounded  border-blue-600 border-2">
                 <p class="text-blue-400"><strong>Productos:</strong> <span class="text-white" >${productDetails}</span> </p>
                 <p class="text-blue-400"><strong>Total:</strong> <span class="text-green-400" >(${order.total})</span>$</p>
                 <p class="text-blue-400"><strong>Dirección de envío:  </strong><span class="text-white" >${order.address}</span> , Código Postal: <span class="text-white">${order.postal_code}</span> </p>
-                <p class="text-blue-400" ><strong>Estado:</strong> <span class="text-white" >${order.estado}</span></p>
+                <p class="text-blue-400" ><strong>Estado:</strong> <span class="${order.estado.toLowerCase() === 'pagado' ? 'text-green-400' : 'text-white'}" >${order.estado}</span></p>
             </div>
         `;
         orderDetailsRow.appendChild(orderDetailsCell);
@@ -62,7 +64,6 @@ function fullUsersList () {
     })
     .catch(error => {
         console.error('Error al obtener los usuarios:', error);
-        alert('Error al obtener los usuarios. Por favor, inténtelo de nuevo más tarde.');
     })
 }
 
@@ -103,10 +104,12 @@ async function toggleUserRole(button) {
             if (newRole === 'Admin') {
                 button.textContent = 'Hacer Cliente';
                 button.classList.replace('bg-purple-600', 'bg-gray-600');
+
             } else {
                 button.textContent = 'Hacer Admin';
                 button.classList.replace('bg-gray-600', 'bg-purple-600');
             }
+            
         } else {
             alert('Error al actualizar el rol. Por favor, inténtelo de nuevo.');
         }
@@ -198,8 +201,17 @@ function createProduct() {
                 }
             });
             console.log('Producto creado:', response.data);
-            alert('Producto creado exitosamente');
-
+            const notification = document.querySelector('.notification');
+                notification.textContent = 'Producto creado exitosamente';
+                 notification.style.color = 'white';   
+                 notification.style.display = 'block';
+                notification.style.zIndex = '1000';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }
+                , 3000);
+                
+            
             //* Añadir el nuevo producto a la lista de productos
             const productList = document.getElementById('product-list');
             const productoCreado = response.data.producto;
@@ -271,7 +283,14 @@ function editProduct() {
            });
            if (response.status === 200) {
                console.log('Producto editado:', response.data);
-               alert('Producto editado exitosamente');
+               notification.textContent = 'Producto editado exitosamente';
+               notification.style.color = 'white';
+                notification.style.display = 'block';
+                notification.style.zIndex = '1000';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
+              
            } else {
                alert('Error al editar el producto. Por favor, inténtelo de nuevo.');
            }
@@ -292,7 +311,9 @@ function editProduct() {
             closeModal(); //* Cerrar el modal
             currentEditProductId = null;
         } catch (error) {
+
             console.error('Error al editar el producto:', error);
+            
             alert('Error al editar el producto. Por favor, inténtelo de nuevo más tarde.');
         }
         
@@ -320,6 +341,7 @@ function mostarProductos(productos) {
     loadedProducts = productos; // Store loaded products globally
     const productList = document.getElementById('product-list');
     productList.innerHTML = ''; // Clear existing products
+    
     productos.forEach(producto => {
         const newRow = document.createElement('tr');
         newRow.dataset.productid = producto.id || producto._id || ''; // Store product id in data attribute
@@ -365,7 +387,14 @@ productList.addEventListener('click', async (e) => {
             console.log(`Eliminando producto: ${id}`); 
             const response = await axios.delete(`/products/${id}`); 
             console.log('Producto eliminado:', response.data);
-            alert('Producto eliminado exitosamente');
+            notification.textContent = 'Producto eliminado exitosamente';
+            notification.style.color = 'white';
+            notification.style.display = 'block';
+            notification.style.zIndex = '1000';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+           
             
             
             e.target.parentElement.parentElement.remove(); //* Remover el elemento seleccionado
@@ -397,8 +426,10 @@ function loadOrders() {
 function mostrarPedidos(pedidos) {
     const ordersTableBody = document.querySelector('#orders-section tbody');
     ordersTableBody.innerHTML = '';
+    pedidos.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
     pedidos.forEach(pedido => {
         const newRow = document.createElement('tr');
+        newRow.classList.add('border', pedido.estado.toLowerCase() === 'pagado' ? 'bg-green-300' : 'bg-gray-100', 'hover:bg-gray-300');
         newRow.innerHTML = `
             <td class="px-6 py-4 whitespace-nowrap">${pedido._id}</td>
             <td class="px-6 py-4 whitespace-nowrap">${pedido.user_id?.nombre || pedido.nombre || 'Desconocido'}</td>
@@ -412,11 +443,29 @@ function mostrarPedidos(pedidos) {
 }
 
 
+function onlyAdmins () {
+    const user = JSON.parse(localStorage.getItem('user')) || null; 
+    if (!user || user.rol !== 'Admin') {
+       
+        
+        const notificacion = document.querySelector('.notification');
+        notificacion.textContent = 'No tienes permiso para acceder a esta sección.';
+        notificacion.style.color = 'red';
+        notificacion.style.display = 'block';
+        notificacion.style.zIndex = '1000';
+        
+        setTimeout(() => {
+            notificacion.style.display = 'none';
+            window.location.href = '/tienda';
+        }, 3000);
+    }
+}
 
 
 
-
-
+window.addEventListener('load', () => {
+    onlyAdmins();
+})
 
 document.addEventListener('DOMContentLoaded', () => {
     createProduct();
@@ -424,6 +473,9 @@ document.addEventListener('DOMContentLoaded', () => {
     fullProductsList();
     fullUsersList();
     mostrarProductos();
+    onlyAdmins();
+    
+    
 });
 
 
